@@ -12,16 +12,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel 
-            Grid.Row="0" 
             VerticalAlignment="Center" 
             HorizontalAlignment="Center">
-            <TextBlock Text="Login" FontSize="30" Margin="0 0 0 30" HorizontalAlignment="Center" Foreground="White"/>
+            <TextBlock Text="Login" FontSize="30" Margin="0 0 0 30" HorizontalAlignment="Center" Foreground="White" FontFamily="Bahnschrift"/>
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                <TextBlock Text="User: " Width="120" VerticalAlignment="Center" Foreground="White" FontSize="18"/>
+                <TextBlock Text="User: " Width="120" VerticalAlignment="Center" Foreground="White" FontSize="18" FontFamily="Bahnschrift"/>
                 <TextBox  Width="300" FontSize="18" Text="{Binding AdminName}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 0 0 30">
-                <TextBlock Text="Password: " Width="120" VerticalAlignment="Center" Foreground="White" FontSize="18"/>
+                <TextBlock Text="Password: " Width="120" VerticalAlignment="Center" Foreground="White" FontSize="18" FontFamily="Bahnschrift"/>
                 <TextBox Width="300" FontSize="18" Text="{Binding Password}"/>
             </StackPanel>
             <Button 
@@ -32,5 +31,6 @@
                 FontSize="16" 
                 Margin="0, 0, 30, 0"/>
         </StackPanel>
+        <Image Margin="430,0,430,417" Source="/EBN Logo.png" Stretch="Fill"/>
     </Grid>
 </UserControl>

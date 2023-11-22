@@ -7,12 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1280">
     <Canvas Background="#FF333333">
-        <Button Content="Overview" Canvas.Top="43" HorizontalAlignment="Left" VerticalAlignment="Center" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" FontWeight="Bold" Foreground="White" Command="{Binding OverviewCommand}" />
-        <Button Content="Users" Canvas.Top="69" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" Command="{Binding UsersCommand}"/>
+        <Button x:Name="btn_Overview" Content="Overview" Canvas.Top="96" HorizontalAlignment="Center" VerticalAlignment="Top" Width="110" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" Height="50" FontWeight="Bold" Foreground="White" Command="{Binding OverviewCommand}" FontSize="16" Canvas.Left="10" />
+        <Button x:Name="btn_Users" Content="Users" Canvas.Top="166" Width="110" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" Command="{Binding UsersCommand}" FontSize="16" Canvas.Left="10"/>
         <Label Content="AdminClient" Height="24" Canvas.Left="592" Width="96" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Canvas.Top="-1"/>
         <Separator Height="1" Canvas.Top="26" Width="1280" Foreground="#FF585858" Background="#FF383838" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Button Content="Advanced &#xD;&#xA;Statistics" Canvas.Top="95" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="32" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding AdvStatsCommand}" />
-        <Label Content="A" Canvas.Left="140" Canvas.Top="39" Background="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Button x:Name="btn_Adv_Stats" Content="Advanced &#xD;&#xA;Statistics" Canvas.Top="238" Width="110" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" Height="50" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding AdvStatsCommand}" FontSize="16" Canvas.Left="10" />
+        <Label Content="A" Canvas.Left="10" Canvas.Top="11" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Welcome to the administration tool for" Canvas.Left="296" Canvas.Top="89" Height="50" Width="688" Foreground="White" FontSize="36" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Bahnschrift" Background="{x:Null}"/>
+        <Image Height="454" Canvas.Left="412" Source="/EBN Logo.png" Stretch="Fill" Canvas.Top="36" Width="456" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Registrered users:" Canvas.Left="438" Canvas.Top="495" Foreground="White" Height="44" Width="202" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" FontWeight="Bold"/>
+        <Label x:Name="Lbl_User_Count" Content="____" Canvas.Left="640" Canvas.Top="495" Foreground="White" Height="44" Width="48" FontSize="22" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="White"/>
 
 
     </Canvas>
