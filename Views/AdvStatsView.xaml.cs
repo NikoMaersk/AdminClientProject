@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts.Wpf;
+using LiveCharts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace AdminClient.Views
 {
@@ -23,6 +26,8 @@ namespace AdminClient.Views
         public AdvStatsView()
         {
             InitializeComponent();
+           
         }
     }
 }
+

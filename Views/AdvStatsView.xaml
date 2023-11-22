@@ -3,15 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AdminClient.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1280">
+             xmlns:local="clr-namespace:AdminClient.Views" xmlns:viewmodels="clr-namespace:AdminClient.ViewModels"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewmodels:AdvStatsViewModel}"
+             
+    d:DesignHeight="800" d:DesignWidth="1280">
     <Canvas Background="#FF797979">
         <Button Content="Overview" Canvas.Top="43" HorizontalAlignment="Left" VerticalAlignment="Center" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" FontWeight="Bold" Foreground="#FF000880" Command="{Binding OverviewCommand}"/>
         <Button Content="Users" Canvas.Top="69" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF000880" Command="{Binding UsersCommand}"/>
         <Label Content="AdminClient" Height="24" Canvas.Left="592" Width="96" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FF000273" Canvas.Top="-1"/>
         <Separator Height="1" Canvas.Top="26" Width="1280" Foreground="#FF585858" Background="#FF383838" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Button Content="Advanced &#xD;&#xA;Statistics" Canvas.Top="95" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="32" FontWeight="Bold" Foreground="#FF000880" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding AdvStatsCommand}"/>
+
+        <lvc:PieChart x:Name="OpenChart" x:FieldModifier="public" LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="499" Canvas.Top="154" Width="400" Height="400">
+            <lvc:PieChart.Series>
+                <lvc:PieSeries Title="{Binding Path=name1}" Values="3" DataLabels="True"
+                               LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+            </lvc:PieChart.Series>
+        </lvc:PieChart>
 
 
     </Canvas>
