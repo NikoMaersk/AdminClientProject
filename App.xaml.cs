@@ -20,8 +20,10 @@ namespace AdminClient
 		public App()
 		{
 			ServiceContainer.Register(() => new LoginViewModel());
-			ServiceContainer.Register(() => new TempViewModel());
-			ServiceContainer.Register(() => new TestViewModel());
+			ServiceContainer.Register(() => new FrontPageViewModel());
+			ServiceContainer.Register(() => new UsersViewModel());
+			ServiceContainer.Register(() => new AdvStatsViewModel());
+			
 		}
 
 		public void ChangeUserControl(Type viewModelType)

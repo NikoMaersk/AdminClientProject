@@ -1,11 +1,24 @@
-﻿using System.ComponentModel;
+﻿using AdminClient.Utility;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
 
 namespace AdminClient.ViewModels
 {
 	internal class ViewModelBase : INotifyPropertyChanged
 	{
-		public event PropertyChangedEventHandler? PropertyChanged;
+
+		public ICommand AdvStatsCommand { get; set; } = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(AdvStatsViewModel)));
+
+        public ICommand UsersCommand { get; set; } = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(UsersViewModel)));
+
+        public ICommand OverviewCommand { get; set; } = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(FrontPageViewModel)));
+
+
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
 		{
