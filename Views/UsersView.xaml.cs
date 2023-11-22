@@ -24,5 +24,7 @@ namespace AdminClient.Views
         {
             InitializeComponent();
         }
+
+   
     }
 }

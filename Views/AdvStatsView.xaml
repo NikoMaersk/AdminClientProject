@@ -14,7 +14,10 @@
         <Button Content="Users" Canvas.Top="69" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF000880" Command="{Binding UsersCommand}"/>
         <Label Content="AdminClient" Height="24" Canvas.Left="592" Width="96" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FF000273" Canvas.Top="-1"/>
         <Separator Height="1" Canvas.Top="26" Width="1280" Foreground="#FF585858" Background="#FF383838" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Button Content="Advanced &#xD;&#xA;Statistics" Canvas.Top="95" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="32" FontWeight="Bold" Foreground="#FF000880" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding AdvStatsCommand}"/>
+
+        <Label Content="C" Canvas.Left="10" Canvas.Top="10" Background="White"/>
+        <Label Content="Placeholder GRAPH FRAME" Canvas.Left="292" Canvas.Top="96" Height="400" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48"/>
+        <Label Content="Placeholder Statistics" Canvas.Left="292" Canvas.Top="501" Height="118" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
         <lvc:PieChart x:Name="OpenChart" x:FieldModifier="public" LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="499" Canvas.Top="154" Width="400" Height="400">
             <lvc:PieChart.Series>
