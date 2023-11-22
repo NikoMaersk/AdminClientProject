@@ -39,7 +39,7 @@ namespace AdminClient.ViewModels
 			}
 		}
 
-		private string _loginText;
+		private string _loginText = "Login";
 
 		public string LoginText
 		{
