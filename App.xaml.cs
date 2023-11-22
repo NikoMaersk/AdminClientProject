@@ -19,6 +19,7 @@ namespace AdminClient
 
 		public App()
 		{
+			ServiceContainer.Register(() => new LoginViewModel());
 			ServiceContainer.Register(() => new TempViewModel());
 			ServiceContainer.Register(() => new TestViewModel());
 		}

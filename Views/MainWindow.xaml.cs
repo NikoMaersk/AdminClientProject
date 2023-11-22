@@ -12,7 +12,7 @@ namespace AdminClient
 		{
 			InitializeComponent();
 			((App)Application.Current).ContentControlRef = this.ContentContainer;
-			((App)App.Current).ChangeUserControl(typeof(TempViewModel));
+			((App)App.Current).ChangeUserControl(typeof(LoginViewModel));
 		}
 	}
 }

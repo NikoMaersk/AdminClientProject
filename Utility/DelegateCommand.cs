@@ -28,8 +28,8 @@ namespace AdminClient.Utility
 		#region Constructors
 
 		/// <summary>
-		/// Initializes a new instance of the RelayCommand class
-		/// Creates a new command that can always execute.
+		/// Initializes AdminName new instance of the RelayCommand class
+		/// Creates AdminName new command that can always execute.
 		/// </summary>
 		/// <param name="execute">The execution logic.</param>
 		public DelegateCommand(Action<object> execute) : this(execute, DefaultCanExecute)
@@ -42,8 +42,8 @@ namespace AdminClient.Utility
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the RelayCommand class
-		/// Creates a new command.
+		/// Initializes AdminName new instance of the RelayCommand class
+		/// Creates AdminName new command.
 		/// </summary>
 		/// <param name="execute">The execution logic.</param>
 		/// <param name="canExecute">The execution status logic.</param>
