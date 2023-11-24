@@ -24,8 +24,16 @@
         </lvc:PieChart>
         <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="137" Command="{Binding PopularityCommand}"></Button>
         <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="252" Command="{Binding OccerrenceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-         
-        
+
+        <ListView SelectedItem="{Binding SelectedName}" ItemsSource="{Binding Path=Names}" Width="298" Height="629" Canvas.Left="207" Canvas.Top="102" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding name}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            
+            
+        </ListView>
 
     </Canvas>
 </UserControl>
