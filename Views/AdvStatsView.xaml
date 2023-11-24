@@ -16,22 +16,16 @@
         <Separator Height="1" Canvas.Top="26" Width="1280" Foreground="#FF585858" Background="#FF383838" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label Content="C" Canvas.Left="10" Canvas.Top="10" Background="White"/>
-        <Label Content="Placeholder GRAPH FRAME" Canvas.Left="292" Canvas.Top="96" Height="400" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48"/>
-        <Label Content="Placeholder Statistics" Canvas.Left="292" Canvas.Top="501" Height="118" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Placeholder GRAPH FRAME" Canvas.Left="510" Canvas.Top="102" Height="400" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48"/>
+        <Label Content="Placeholder Statistics" Canvas.Left="510" Canvas.Top="507" Height="118" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
-        <lvc:PieChart x:Name="OpenChart" x:FieldModifier="public" LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="499" Canvas.Top="154" Width="400" Height="400">
-            <lvc:PieChart.Series>
-                <lvc:PieSeries Title="{Binding Path=name1}" Values="3" DataLabels="True"
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-            </lvc:PieChart.Series>
+        <lvc:PieChart Series ="{Binding Path=PieSeries1}"  LegendLocation="Left" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="737" Canvas.Top="102" Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top">
+
         </lvc:PieChart>
-
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="137" Command="{Binding PopularityCommand}"></Button>
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="252" Command="{Binding OccerrenceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+         
+        
 
     </Canvas>
 </UserControl>
