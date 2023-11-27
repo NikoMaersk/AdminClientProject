@@ -18,41 +18,44 @@ namespace AdminClient.Model
             PointLabel = chartPoint =>
                     string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
         }
-        public List<PieSeries> PieSeriesPopularity(List<Name> names)
+        
+        public PieSeries PieSeriesPopularity(Name names, StatTypeEnum statTypeEnum)
         {
             List<PieSeries> series = new List<PieSeries>();
-            foreach (var item in names)
+
+            return new PieSeries
             {
-                series.Add(new PieSeries {
-                Title = item.name, 
-                Values = new ChartValues<ObservableValue> { new ObservableValue(item.Popularity)},
-                    DataLabels = true,
-                    LabelPoint = PointLabel
-
-                });
-            }
+                Title = names.name,
+                Values = new ChartValues<ObservableValue> { new ObservableValue(names.Popularity) },
+                DataLabels = true,
+                LabelPoint = PointLabel
 
 
-            return series;
+            };
         }
-        public List<PieSeries> PieSeriesOccerrence(List<Name> names)
+        public PieSeries PieSeriesOccerrence(Name names, StatTypeEnum statTypeEnum)
         {
             List<PieSeries> series = new List<PieSeries>();
-            foreach (var item in names)
+
+            return new PieSeries
             {
-                series.Add(new PieSeries
-                {
-                    Title = item.name,
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(item.Occerrence) },
-                    DataLabels = true,
-                    LabelPoint = PointLabel
-
-                });
-            }
+                Title = names.name,
+                Values = new ChartValues<ObservableValue> { new ObservableValue(names.Occerrence) },
+                DataLabels = true,
+                LabelPoint = PointLabel
 
 
-            return series;
+            };
         }
+        public ChartValues<int> LineSeriesPopularity()
+        {
+            return new ChartValues<int>
+            {   
+                
+            };
+
+        }
+        
         private Func<ChartPoint, string> PointLabel { get; set; }
 
     }
