@@ -7,29 +7,78 @@
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewmodels:AdvStatsViewModel}"
-             
     d:DesignHeight="800" d:DesignWidth="1280">
-    <Canvas Background="#FF333333">
+    <Canvas Background="#FF797979">
         <Button Content="Overview" Canvas.Top="43" HorizontalAlignment="Left" VerticalAlignment="Center" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" FontWeight="Bold" Foreground="#FF000880" Command="{Binding OverviewCommand}"/>
         <Button Content="Users" Canvas.Top="69" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF000880" Command="{Binding UsersCommand}"/>
         <Label Content="AdminClient" Height="24" Canvas.Left="592" Width="96" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FF000273" Canvas.Top="-1"/>
         <Separator Height="1" Canvas.Top="26" Width="1280" Foreground="#FF585858" Background="#FF383838" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label Content="C" Canvas.Left="10" Canvas.Top="10" Background="White"/>
+        <Label Content="Placeholder GRAPH FRAME" Canvas.Left="510" Canvas.Top="102" Height="400" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48"/>
+        <Label Content="Placeholder Statistics" Canvas.Left="510" Canvas.Top="507" Height="154" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-        <lvc:PieChart x:Name="OpenChart" x:FieldModifier="public" LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="360" Canvas.Top="54" Width="400" Height="400">
-            <lvc:PieChart.Series>
-                <lvc:PieSeries Title="{Binding Path=name1}" Values="3" DataLabels="True"
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-            </lvc:PieChart.Series>
+        <lvc:PieChart Visibility="{Binding VisibilityChart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Series ="{Binding Path=PieSeries1}"  LegendLocation="Left" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="737" Canvas.Top="102" Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top">
+
         </lvc:PieChart>
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="137" Command="{Binding PopularityCommand}"></Button>
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="252" Command="{Binding OccerrenceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="364" Command="{Binding VisibilityChart}" HorizontalAlignment="Center" VerticalAlignment="Top"></Button>
 
+        <ListView SelectedItem="{Binding SelectedName}" ItemsSource="{Binding Path=Names}" Width="177" Height="625" Canvas.Left="117" Canvas.Top="102" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Padding="5,5,5,5">
+                            <TextBlock Grid.Column ="0" Text="{Binding name}"></TextBlock>
+                        </Border>
+                        <Border Grid.Column="1" Padding="5,5,5,5">
+                            <TextBlock Grid.Column="1" Text="{Binding Gender}"></TextBlock>
+                        </Border>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+        </ListView>
+        <ListView SelectedItem="{Binding UnSelectName}" ItemsSource="{Binding Path=SelectedNames}" Width="177" Height="625" Canvas.Left="309" Canvas.Top="102" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding name}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+        </ListView>
+        <ListView ItemsSource="{Binding SelectedNames}" Width="700" Height="218" Canvas.Left="510" Canvas.Top="507" HorizontalAlignment="Center" VerticalAlignment="Top" SelectionChanged="ListView_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Text="{Binding name}"></TextBox>
+                        <TextBox Grid.Column="1" Text="{Binding Popularity}"></TextBox>
+                        <TextBox Grid.Column="2" Text="{Binding Occerrence}"></TextBox>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <lvc:CartesianChart Width="700" Height="400" Canvas.Left="510" Canvas.Top="102">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Name"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="ADDBINDING"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
 
     </Canvas>
 </UserControl>
