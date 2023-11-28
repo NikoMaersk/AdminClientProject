@@ -4,6 +4,7 @@ using AdminClient.Utility;
 using AdminClient.Views;
 using LiveCharts;
 using LiveCharts.Defaults;
+using LiveCharts.Definitions.Series;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,17 @@ namespace AdminClient.ViewModels
         public ICommand OccerrenceCommand { get; set; }
         public ICommand SelectNameCommand { get; set; }
         public ICommand togglePieChartCommand { get; set; }
+        
         private StatTypeEnum StatTypeEnum { get; set; }
+        private ChartTypeEnum ChartTypeEnum { get; set; }
         private Visibility _VisibilityChart;
+
+        private bool PieEnable { get; set; }
+        public bool ColumnEnable { get; set; }
         public List<Name> Names { get; set; }
         public ObservableCollection<Name> SelectedNames { get; set; }
-        public SeriesCollection PieSeries1 { get; set; }
+        //public SeriesCollection ColumnSeries { get; set; } // should not be needed
+        public SeriesCollection SeriesCollect { get; set; }
         
         private void ExecuteAuthorization()
         {
@@ -39,7 +46,9 @@ namespace AdminClient.ViewModels
         }
         public AdvStatsViewModel()
         {
-            PieSeries1 = new SeriesCollection();
+            ColumnEnable = false;
+            ChartTypeEnum = ChartTypeEnum.PieChart;
+            SeriesCollect = new SeriesCollection();
             Names = new List<Name>();
             SelectedNames = new ObservableCollection<Name>();
             PopularityCommand = new DelegateCommand(() => PopularityPie());
@@ -51,52 +60,71 @@ namespace AdminClient.ViewModels
             Names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.male });
             Names.Add(new Name { Id = 1, name = "test4", Popularity = 3, Occerrence = 111, Gender = Gender.female });
 
-            //SelectedNames.Add(new Name { Id = 1, name = "test5", Popularity = 3, Occerrence = 111 });
-
         }
+        #region StateChangers
+        // SeriesCollect & SelectedNames should always be cleared between major state changes
         public void PopularityPie()
         {
-            PieSeries1.Clear();
+            SeriesCollect.Clear();
             SelectedNames.Clear();
             StatTypeEnum = StatTypeEnum.Popularity;
         }
         public void OccerrencePie()
         {
-            PieSeries1.Clear();
+            SeriesCollect.Clear();
             SelectedNames.Clear();
             StatTypeEnum = StatTypeEnum.Occerrence;
         }
+        #region VisibilityController
+        public Visibility VisibilityChart
+        {
+            get => _VisibilityChart;
+            set
+            {
+                _VisibilityChart = value;
+                OnPropertyChanged("VisibilityChart");
 
+            }
+
+        }
+
+        public void ToggleVisibility()
+        {
+            if (_VisibilityChart == Visibility.Visible)
+            {
+                _VisibilityChart = Visibility.Hidden;
+                Trace.WriteLine(_VisibilityChart.ToString());
+            }
+            else
+            {
+                _VisibilityChart = Visibility.Visible;
+                Trace.WriteLine(_VisibilityChart.ToString());
+            }
+
+            OnPropertyChanged("VisibilityChart");
+        }
+        #endregion
+
+        #endregion
         public Name SelectedName
         {
             get
             {
-                return new Name(); // very bad
+                return new Name();
             }
             set
             {
-                if (SelectedNames.Contains(value))
+                if (SelectedNames.Contains(value)) // Allows users to removed items by reselecting a selected item
                 {
                     int index = SelectedNames.IndexOf(value);
                     SelectedNames.RemoveAt(0);
-                    PieSeries1.RemoveAt(index);
+                    SeriesCollect.RemoveAt(index);
                 }
                 else
-                {
+                { // Converts the Name object into a usable series, the significant value is StatTypeEnum, ChartTypeEnum determins the underlying series object type, them should not be mixed.
                     SeriesBuilder seriesBuilder = new SeriesBuilder();
                     SelectedNames.Add(value);
-                    switch (StatTypeEnum)
-                    {
-                        case StatTypeEnum.Popularity:
-                            PieSeries1.Add(seriesBuilder.PieSeriesPopularity(value, StatTypeEnum));
-                            break;
-                        case StatTypeEnum.Occerrence:
-                            PieSeries1.Add(seriesBuilder.PieSeriesOccerrence(value, StatTypeEnum));
-                            break;
-                        default:
-                            break;
-                    }
-
+                    SeriesCollect.Add(seriesBuilder.MakeSeries(value, StatTypeEnum, ChartTypeEnum));
                 }
                 OnPropertyChanged();
             }
@@ -111,7 +139,7 @@ namespace AdminClient.ViewModels
                 if (SelectedNames.Contains(value))
                 {
                     int index = SelectedNames.IndexOf(value);
-                    PieSeries1.RemoveAt(index);
+                    SeriesCollect.RemoveAt(index);
                     SelectedNames.Remove(value);
                 }
 
@@ -122,42 +150,8 @@ namespace AdminClient.ViewModels
 
 
         }
-
-        public Visibility VisibilityChart
-        {
-            get { return _VisibilityChart; }
-            set 
-            {
-                if (_VisibilityChart == Visibility.Visible)
-                {
-                    _VisibilityChart = Visibility.Hidden;
-                    Trace.WriteLine(_VisibilityChart.ToString());
-                }
-                else
-                {
-                    _VisibilityChart = Visibility.Visible;
-                    Trace.WriteLine(_VisibilityChart.ToString());
-                }
-                OnPropertyChanged();
-
-            }
         
-        }
-        public void ToggleVisibility()
-        {
-            if ( _VisibilityChart == Visibility.Visible)
-            {
-                _VisibilityChart = Visibility.Hidden;
-                Trace.WriteLine(_VisibilityChart.ToString());
-            }
-            else
-            {
-                _VisibilityChart = Visibility.Visible;
-                Trace.WriteLine(_VisibilityChart.ToString());
-            }
-
-            OnPropertyChanged("VisibilityChart");
-        }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

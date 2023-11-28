@@ -18,12 +18,12 @@
         <Label Content="Placeholder GRAPH FRAME" Canvas.Left="510" Canvas.Top="102" Height="400" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48"/>
         <Label Content="Placeholder Statistics" Canvas.Left="510" Canvas.Top="507" Height="154" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-        <lvc:PieChart Visibility="{Binding VisibilityChart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Series ="{Binding Path=PieSeries1}"  LegendLocation="Left" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="737" Canvas.Top="102" Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <lvc:PieChart Visibility="{Binding VisibilityChart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Series ="{Binding Path=SeriesCollect}"  LegendLocation="Left" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="737" Canvas.Top="102" Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top">
 
         </lvc:PieChart>
         <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="137" Command="{Binding PopularityCommand}"></Button>
         <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="252" Command="{Binding OccerrenceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="364" Command="{Binding VisibilityChart}" HorizontalAlignment="Center" VerticalAlignment="Top"></Button>
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="364" Command="{Binding togglePieChartCommand}" HorizontalAlignment="Center" VerticalAlignment="Top"></Button>
 
         <ListView SelectedItem="{Binding SelectedName}" ItemsSource="{Binding Path=Names}" Width="177" Height="625" Canvas.Left="117" Canvas.Top="102" HorizontalAlignment="Left" VerticalAlignment="Center">
             <ListView.ItemTemplate>
@@ -71,14 +71,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <lvc:CartesianChart Width="700" Height="400" Canvas.Left="510" Canvas.Top="102">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Name"></lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="ADDBINDING"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
+
+        <lvc:CartesianChart Series="{Binding Path=SeriesCollect}" IsEnabled="{Binding Path=ColumnEnable}" LegendLocation="Left" Height="390" Width="700" Canvas.Left="510" Canvas.Top="112">
+            
+
         </lvc:CartesianChart>
+
 
     </Canvas>
 </UserControl>
