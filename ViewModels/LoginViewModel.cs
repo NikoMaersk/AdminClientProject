@@ -1,5 +1,9 @@
-﻿using AdminClient.Utility;
+﻿using AdminClient.Model.DataObjects;
+using AdminClient.Utility;
+using AdminClient.Utility.HttpHelper;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -62,6 +66,14 @@ namespace AdminClient.ViewModels
 		private void ExecuteAuthorization()
 		{
 			throw new NotImplementedException();
+		}
+
+		private static async Task<string?> Login()
+		{
+			using (var client = new AdminLoginUtil())
+			{
+				return await client.AdminLogin();
+			}
 		}
     }
 }
