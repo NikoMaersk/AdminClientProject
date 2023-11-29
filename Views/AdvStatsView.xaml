@@ -8,24 +8,23 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewmodels:AdvStatsViewModel}"
     d:DesignHeight="800" d:DesignWidth="1280">
-    <Canvas Background="#FF797979">
-        <Button Content="Overview" Canvas.Top="43" HorizontalAlignment="Left" VerticalAlignment="Center" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" FontWeight="Bold" Foreground="#FF000880" Command="{Binding OverviewCommand}"/>
-        <Button Content="Users" Canvas.Top="69" Width="71" FontFamily="Bahnschrift" BorderBrush="{x:Null}" Background="{x:Null}" Height="21" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FF000880" Command="{Binding UsersCommand}"/>
-        <Label Content="AdminClient" Height="24" Canvas.Left="592" Width="96" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FF000273" Canvas.Top="-1"/>
+    <Canvas Background="#333333">
+        <Button Content="Overview" Canvas.Top="96" HorizontalAlignment="Center" VerticalAlignment="Top" Width="110" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" Height="50" FontWeight="Bold" Foreground="White" Command="{Binding OverviewCommand}" FontSize="16" Canvas.Left="10" />
+        <Button Content="Users" Canvas.Top="166" Width="110" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" Command="{Binding UsersCommand}" FontSize="16" Canvas.Left="10"/>
+        <Button Content="Advanced &#xD;&#xA;Statistics" Canvas.Top="238" Width="110" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" Height="50" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding AdvStatsCommand}" FontSize="16" Canvas.Left="10" />
+        <Label Content="AdminClient" Height="24" Canvas.Left="592" Width="96" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Canvas.Top="-1"/>
         <Separator Height="1" Canvas.Top="26" Width="1280" Foreground="#FF585858" Background="#FF383838" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label Content="C" Canvas.Left="10" Canvas.Top="10" Background="White"/>
-        <Label Content="Placeholder GRAPH FRAME" Canvas.Left="510" Canvas.Top="102" Height="400" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48"/>
-        <Label Content="Placeholder Statistics" Canvas.Left="510" Canvas.Top="507" Height="154" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
         <lvc:PieChart Visibility="{Binding VisibilityChart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Series ="{Binding Path=PieSeries1}"  LegendLocation="Left" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="737" Canvas.Top="102" Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top">
 
         </lvc:PieChart>
-        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="137" Command="{Binding PopularityCommand}"></Button>
-        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="252" Command="{Binding OccerrenceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="364" Command="{Binding VisibilityChart}" HorizontalAlignment="Center" VerticalAlignment="Top"></Button>
+        <Button Height="51" Width="80" Canvas.Left="937" Canvas.Top="34" Command="{Binding PopularityCommand}" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+        <Button Height="51" Width="80" Canvas.Left="1040" Canvas.Top="34" Command="{Binding OccerrenceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Button Height="51" Width="80" Canvas.Left="1138" Canvas.Top="34" Command="{Binding VisibilityChart}" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
 
-        <ListView SelectedItem="{Binding SelectedName}" ItemsSource="{Binding Path=Names}" Width="177" Height="625" Canvas.Left="117" Canvas.Top="102" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <ListView SelectedItem="{Binding SelectedName}" ItemsSource="{Binding Path=Names}" Width="177" Height="625" Canvas.Left="155" Canvas.Top="121" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -46,7 +45,7 @@
 
 
         </ListView>
-        <ListView SelectedItem="{Binding UnSelectName}" ItemsSource="{Binding Path=SelectedNames}" Width="177" Height="625" Canvas.Left="309" Canvas.Top="102" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <ListView SelectedItem="{Binding UnSelectName}" ItemsSource="{Binding Path=SelectedNames}" Width="177" Height="625" Canvas.Left="337" Canvas.Top="121" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding name}"/>
@@ -55,7 +54,7 @@
 
 
         </ListView>
-        <ListView ItemsSource="{Binding SelectedNames}" Width="700" Height="218" Canvas.Left="510" Canvas.Top="507" HorizontalAlignment="Center" VerticalAlignment="Top" SelectionChanged="ListView_SelectionChanged">
+        <ListView ItemsSource="{Binding SelectedNames}" Width="700" Height="218" Canvas.Left="533" Canvas.Top="528" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="ListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -71,7 +70,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <lvc:CartesianChart Width="700" Height="400" Canvas.Left="510" Canvas.Top="102">
+        <lvc:CartesianChart Width="700" Height="400" Canvas.Left="533" Canvas.Top="107">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Name"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
