@@ -28,11 +28,6 @@ namespace AdminClient.Views
             InitializeComponent();
            
         }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
 

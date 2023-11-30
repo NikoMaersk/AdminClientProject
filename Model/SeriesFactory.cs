@@ -13,21 +13,29 @@ using System.Web;
 
 namespace AdminClient.Model
 {
-    internal class SeriesBuilder
+    internal class SeriesFactory
     {
-        public SeriesBuilder() 
+        
+        public SeriesFactory() 
         {
             PointLabel = chartPoint =>
                     string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
         }
 
-        public ISeriesView MakeSeries(Name name, StatTypeEnum statType,ChartTypeEnum chartType ) // Consolidate all methods into here
+        public ISeriesView MakeSeries(Name name, StatTypeEnum statType,ChartTypeEnum chartType, ref SeriesCollection series) // Consolidate all methods into here
         {
             switch(chartType)
             {
                 case ChartTypeEnum.PieChart:
                     {
                         return PieSeries(name, statType);
+                    }
+                case ChartTypeEnum.ColumnChart: 
+                    {
+                        AddtoSeriesCollection(ref series, name.name, name.Popularity);
+
+
+                        return null;
                     }
 
             }
@@ -71,9 +79,9 @@ namespace AdminClient.Model
        
         public SeriesCollection AddtoSeriesCollection (ref SeriesCollection series, string s, int value )
         {
-            
-            int i = series.IndexOf(ColumnSeries.NameProperty.Name == s);
-            series[i].Values.Add(value);
+
+            int i = 0;
+            series[i].Values.Add( value );
             return series;
         }
         

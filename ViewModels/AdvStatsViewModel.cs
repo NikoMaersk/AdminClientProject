@@ -1,9 +1,7 @@
 ﻿using AdminClient.Model;
 using AdminClient.Model.DataObjects;
 using AdminClient.Utility;
-using AdminClient.Views;
 using LiveCharts;
-using LiveCharts.Defaults;
 using LiveCharts.Definitions.Series;
 using LiveCharts.Wpf;
 using System;
@@ -11,13 +9,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace AdminClient.ViewModels
@@ -32,12 +27,14 @@ namespace AdminClient.ViewModels
         private StatTypeEnum StatTypeEnum { get; set; }
         private ChartTypeEnum ChartTypeEnum { get; set; }
         private Visibility _VisibilityChart;
-
+        public string SeriesNameTextBox { get; set; }
+        public int SelectedSeriesIndex { get; set; }
         private bool PieEnable { get; set; }
         public bool ColumnEnable { get; set; }
         public List<Name> Names { get; set; }
         public ObservableCollection<Name> SelectedNames { get; set; }
-        //public SeriesCollection ColumnSeries { get; set; } // should not be needed
+        private SeriesCollection ColumnSeries = new SeriesCollection(); // should not be needed
+        public ObservableCollection<Button> SeriesButtons { get; set; }
         public SeriesCollection SeriesCollect { get; set; }
         
         private void ExecuteAuthorization()
@@ -46,23 +43,27 @@ namespace AdminClient.ViewModels
         }
         public AdvStatsViewModel()
         {
-            ColumnEnable = false;
-            ChartTypeEnum = ChartTypeEnum.PieChart;
+            ChartTypeEnum = ChartTypeEnum.ColumnChart;
             SeriesCollect = new SeriesCollection();
+            ColumnEnable= true;
+            ColumnSeries.Add(new ColumnSeries { Title = "Series 1", Values = new ChartValues<int> { } });
+
             Names = new List<Name>();
             SelectedNames = new ObservableCollection<Name>();
             PopularityCommand = new DelegateCommand(() => PopularityPie());
             OccerrenceCommand = new DelegateCommand(() => OccerrencePie());
             togglePieChartCommand = new DelegateCommand(() => ToggleVisibility());
 
-            Names.Add(new Name { Id = 1, name = "test", Popularity = 3, Occerrence = 111, Gender = Gender.male });
+            Names.Add(new Name { Id = 1, name = "test", Popularity  = 3, Occerrence = 111, Gender = Gender.male });
             Names.Add(new Name { Id = 1, name = "test2", Popularity = 3, Occerrence = 111, Gender = Gender.female });
             Names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.male });
             Names.Add(new Name { Id = 1, name = "test4", Popularity = 3, Occerrence = 111, Gender = Gender.female });
+            SeriesButtons = new ObservableCollection<Button>();
 
         }
         #region StateChangers
         // SeriesCollect & SelectedNames should always be cleared between major state changes
+        #region Buttons
         public void PopularityPie()
         {
             SeriesCollect.Clear();
@@ -82,12 +83,16 @@ namespace AdminClient.ViewModels
             set
             {
                 _VisibilityChart = value;
+                Button button = new Button();
+                button.Height = 100;
+                button.Width = 100;
+                SeriesButtons.Add(button);
+
                 OnPropertyChanged("VisibilityChart");
 
             }
 
         }
-
         public void ToggleVisibility()
         {
             if (_VisibilityChart == Visibility.Visible)
@@ -103,6 +108,14 @@ namespace AdminClient.ViewModels
 
             OnPropertyChanged("VisibilityChart");
         }
+
+        void buttonAddSeries(object sender, RoutedEventArgs e)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        
         #endregion
 
         #endregion
@@ -122,9 +135,11 @@ namespace AdminClient.ViewModels
                 }
                 else
                 { // Converts the Name object into a usable series, the significant value is StatTypeEnum, ChartTypeEnum determins the underlying series object type, them should not be mixed.
-                    SeriesBuilder seriesBuilder = new SeriesBuilder();
+                    SeriesFactory seriesBuilder = new SeriesFactory();
                     SelectedNames.Add(value);
-                    SeriesCollect.Add(seriesBuilder.MakeSeries(value, StatTypeEnum, ChartTypeEnum));
+                    object holder = seriesBuilder.MakeSeries(value, StatTypeEnum, ChartTypeEnum, ref ColumnSeries);
+                    if (holder != null) { SeriesCollect.Add((ISeriesView)holder); }
+                    
                 }
                 OnPropertyChanged();
             }
@@ -150,8 +165,18 @@ namespace AdminClient.ViewModels
 
 
         }
-        
-        
+        #endregion
+        public SeriesCollection ColumnSeriesProp
+        {
+            get { return ColumnSeries; }
+            set { ColumnSeries = value; }
+
+        }
+        public int selectedIndex
+        {
+            get; set;
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

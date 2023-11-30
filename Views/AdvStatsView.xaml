@@ -21,9 +21,25 @@
         <lvc:PieChart Visibility="{Binding VisibilityChart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Series ="{Binding Path=SeriesCollect}"  LegendLocation="Left" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="737" Canvas.Top="102" Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top">
 
         </lvc:PieChart>
-        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="137" Command="{Binding PopularityCommand}"></Button>
-        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="252" Command="{Binding OccerrenceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="364" Command="{Binding togglePieChartCommand}" HorizontalAlignment="Center" VerticalAlignment="Top"></Button>
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="137" Command="{Binding PopularityCommand}" Content="PopChange"></Button>
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="252" Command="{Binding OccerrenceCommand}" Content="OccChange" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="364" Command="{Binding togglePieChartCommand}" Content="ChartToggle" HorizontalAlignment="Center" VerticalAlignment="Top"></Button>
+        <Button Height="40" Width="50" Canvas.Left="436" Canvas.Top="58" Command="{Binding togglePieChartCommand}" Content="AddSeries" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Path=SeriesNameTextBox}" IsReadOnly="False" Width="127" Canvas.Left="309" Canvas.Top="60" Height="37" HorizontalAlignment="Left" VerticalAlignment="Top"></TextBox>
+        
+        <DataGrid ItemsSource="{Binding Path=SeriesButtons}" AutoGenerateColumns="True" Width="178" Height="98" Canvas.Left="510">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Path=Content}"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
 
         <ListView SelectedItem="{Binding SelectedName}" ItemsSource="{Binding Path=Names}" Width="177" Height="625" Canvas.Left="117" Canvas.Top="102" HorizontalAlignment="Left" VerticalAlignment="Center">
             <ListView.ItemTemplate>
@@ -72,11 +88,10 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <lvc:CartesianChart Series="{Binding Path=SeriesCollect}" IsEnabled="{Binding Path=ColumnEnable}" LegendLocation="Left" Height="390" Width="700" Canvas.Left="510" Canvas.Top="112">
-            
+        <lvc:CartesianChart Series="{Binding ColumnSeriesProp}" IsEnabled="{Binding Path=ColumnEnable}" Padding="5" LegendLocation="Left" Height="390" Width="700" Canvas.Left="510" Canvas.Top="112">
+
 
         </lvc:CartesianChart>
-
 
     </Canvas>
 </UserControl>
