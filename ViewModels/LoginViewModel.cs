@@ -1,9 +1,7 @@
 ﻿using AdminClient.Model.DataObjects;
 using AdminClient.Utility;
 using AdminClient.Utility.HttpHelper;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,9 +15,8 @@ namespace AdminClient.ViewModels
 
 		#endregion
 
-
 		#region Properties
-		private string _adminName;
+		protected string _adminName = string.Empty;
 
 		public string AdminName
 		{
@@ -31,7 +28,7 @@ namespace AdminClient.ViewModels
 			}
 		}
 
-		private string _password;
+		protected string _password = string.Empty;
 
 		public string Password
 		{
@@ -55,24 +52,39 @@ namespace AdminClient.ViewModels
 			}
 		}
 
-
+		public List<Name> names { get; set; }
 		#endregion
+
 
 		public LoginViewModel()
         {
-			LoginCommand = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(FrontPageViewModel)));
+			LoginCommand = new RelayCommand(ExecuteAuthorization);
         }
 
-		private void ExecuteAuthorization()
-		{
-			throw new NotImplementedException();
-		}
 
-		private static async Task<string?> Login()
+		private async void ExecuteAuthorization()
 		{
-			using (var client = new AdminLoginUtil())
+			if (_adminName == string.Empty && _password == string.Empty)
 			{
-				return await client.AdminLogin();
+				return;
+			}
+
+			var (success, token) = await AdminLogin.Login(_adminName, _password);
+
+			if (success)
+			{
+				base.Token = token;
+
+				// Register HttpConnections in factory
+				HttpConnectionFactory.Instance.RegisterConnection(new HttpNamesConnection(token));
+				HttpConnectionFactory.Instance.RegisterConnection(new HttpUserConnection(token));
+				HttpConnectionFactory.Instance.RegisterConnection(new HttpMatchConnection(token));
+
+				((App)Application.Current).ChangeUserControl(typeof(FrontPageViewModel));
+			}
+			else
+			{
+				Password = "Wrong email or password";
 			}
 		}
     }

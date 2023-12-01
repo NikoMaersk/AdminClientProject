@@ -46,10 +46,10 @@ namespace AdminClient.ViewModels
             OccerrenceCommand = new DelegateCommand(() => OccerrencePie());
             togglePieChartCommand = new DelegateCommand(() => ToggleVisibility());
 
-            Names.Add(new Name { Id = 1, name = "test", Popularity = 3, Occerrence = 111, Gender = Gender.male });
-            Names.Add(new Name { Id = 1, name = "test2", Popularity = 3, Occerrence = 111, Gender = Gender.female });
-            Names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.male });
-            Names.Add(new Name { Id = 1, name = "test4", Popularity = 3, Occerrence = 111, Gender = Gender.female });
+            Names.Add(new Name { Id = 1, name = "test", Popularity = 3, Occerrence = 111, Gender = Gender.boy });
+            Names.Add(new Name { Id = 1, name = "test2", Popularity = 3, Occerrence = 111, Gender = Gender.girl });
+            Names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.boy });
+            Names.Add(new Name { Id = 1, name = "test4", Popularity = 3, Occerrence = 111, Gender = Gender.girl });
 
             //SelectedNames.Add(new Name { Id = 1, name = "test5", Popularity = 3, Occerrence = 111 });
 
