@@ -9,5 +9,5 @@
         public int Popularity { get; set; }
         public int Occerrence { get; set; }
     }
-    enum Gender { male,female,unisex}
+    enum Gender { boy,girl,uni}
 }

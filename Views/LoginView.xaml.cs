@@ -24,5 +24,13 @@ namespace AdminClient.Views
 		{
 			InitializeComponent();
 		}
+
+		private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+		{
+			if (PasswordTextBox.Text == "Wrong email or password")
+			{
+				PasswordTextBox.Text = string.Empty;
+			}	
+		}
 	}
 }
