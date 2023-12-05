@@ -32,7 +32,7 @@
                 HorizontalAlignment="Center" 
                 Command="{Binding LoginCommand}" 
                 FontSize="16" 
-                Margin="0, 0, 30, 0"/>
+                Margin="0, 0, 30, 0" Background="#FF333333" Foreground="White" BorderBrush="White"/>
         </StackPanel>
     </Grid>
 </UserControl>
