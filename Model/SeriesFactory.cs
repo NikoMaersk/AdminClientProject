@@ -22,26 +22,18 @@ namespace AdminClient.Model
                     string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
         }
 
-        public ISeriesView MakeSeries(Name name, StatTypeEnum statType,ChartTypeEnum chartType, ref SeriesCollection series) // Consolidate all methods into here
+        public ISeriesView MakeSeries(Name name, StatTypeEnum statType) // Consolidate all methods into here
         {
-            switch(chartType)
-            {
-                case ChartTypeEnum.PieChart:
-                    {
-                        return PieSeries(name, statType);
-                    }
-                case ChartTypeEnum.ColumnChart: 
-                    {
-                        AddtoSeriesCollection(ref series, name.name, name.Popularity);
+          return PieSeries(name, statType);
+
+        }
+        public ISeriesView MakeSeries(Name name, StatTypeEnum statType, ref SeriesCollection series, int index) 
+        {
+            AddtoSeriesCollection(ref series, name.name, name.Popularity, index);
 
 
-                        return null;
-                    }
+            return null;
 
-            }
-
-
-            return new PieSeries();
         }
 
 
@@ -76,16 +68,41 @@ namespace AdminClient.Model
             }
             return null;
         }
-       
-        public SeriesCollection AddtoSeriesCollection (ref SeriesCollection series, string s, int value )
+        public void addNewSeries(ref SeriesCollection series, string s)
         {
+            series.Add(new ColumnSeries { Title = s, Values = { } });
+        }
+       
+        private SeriesCollection AddtoSeriesCollection (ref SeriesCollection series, string s, int value, int index )
+        {
+            if (series[index].Values ==null)
+            {
+                series[index].Values = new ChartValues<ObservableValue> { new ObservableValue(value) };
 
-            int i = 0;
-            series[i].Values.Add( value );
+            }
+            else 
+            {
+                series[index].Values.Add(new ObservableValue(value));
+            }
             return series;
         }
-        
+        public nestedSeries makeNestedSeries(string seriesName)
+        {
+
+
+
+            return new nestedSeries { SeriresName = seriesName };
+        }
+        public nestedSeries addNestedSeries(string name, int index)
+        {
+
+
+
+            return new nestedSeries();
+        }
+
         private Func<ChartPoint, string> PointLabel { get; set; }
 
     }
+ 
 }
