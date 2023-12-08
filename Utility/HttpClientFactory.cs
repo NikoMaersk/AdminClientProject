@@ -1,44 +1,29 @@
-﻿using AdminClient.Model.DataObjects;
-using AdminClient.Utility.HttpHelper;
-using AdminClient.Utility.HttpHelper.Interfaces;
+﻿using AdminClient.Utility.HttpHelper.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace AdminClient.Utility
 {
-    public static class HttpClientFactory
+	public class HttpConnectionFactory
 	{
-		private static Dictionary<Type, object> connectionInstances = new Dictionary<Type, object>();
+		private readonly Dictionary<Type, object> connectionMap = new Dictionary<Type, object>();
+		private static readonly HttpConnectionFactory instance = new HttpConnectionFactory();
 
-		public static IHttpConnection<T> CreateHttpConnection<T>()
+		public static HttpConnectionFactory Instance => instance;
+
+		public void RegisterConnection<T>(IHttpConnection<T> connection)
 		{
-			Type connectionType = typeof(IHttpConnection<T>);
-
-			if (connectionInstances.TryGetValue(connectionType, out var instance))
-			{
-				return (IHttpConnection<T>)instance;
-			}
-
-			var newConnection = CreateNewHttpConnection<T>();
-
-			if (newConnection != null)
-			{
-				connectionInstances[connectionType] = newConnection;
-			}
-
-			return newConnection;
+			connectionMap[typeof(T)] = connection;
 		}
 
-		private static IHttpConnection<T>? CreateNewHttpConnection<T>()
+		public IHttpConnection<T>? CreateNewHttpConnection<T>()
 		{
-			if (typeof(T) == typeof(Name))
+			if (connectionMap.TryGetValue(typeof(T), out var connection))
 			{
-				return new HttpNamesConnection() as IHttpConnection<T>;
+				return (IHttpConnection<T>)connection;
 			}
-			else
-			{
-				return new HttpUserConnection() as IHttpConnection<T>;
-			}
+
+			return null;
 		}
 	}
 }

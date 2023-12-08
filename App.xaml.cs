@@ -1,4 +1,5 @@
 ﻿using AdminClient.Utility;
+using AdminClient.Utility.HttpHelper;
 using AdminClient.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,11 @@ namespace AdminClient
 
 		public App()
 		{
+			// Register view models
 			ServiceContainer.Register(() => new LoginViewModel());
 			ServiceContainer.Register(() => new FrontPageViewModel());
 			ServiceContainer.Register(() => new UsersViewModel());
 			ServiceContainer.Register(() => new AdvStatsViewModel());
-			
 		}
 
 		public void ChangeUserControl(Type viewModelType)

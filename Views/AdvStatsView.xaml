@@ -38,8 +38,6 @@
         <Separator Height="1" Canvas.Top="26" Width="1280" Foreground="#FF585858" Background="#FF383838" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
         <Label Content="C" Canvas.Left="10" Canvas.Top="10" Background="White"/>
-        <Label Content="Placeholder GRAPH FRAME" Canvas.Left="510" Canvas.Top="102" Height="400" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48"/>
-        <Label Content="Placeholder Statistics" Canvas.Left="510" Canvas.Top="507" Height="154" Width="700" Foreground="White" BorderThickness="2" BorderBrush="White" FontFamily="Bahnschrift" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
         <lvc:PieChart Visibility="{Binding VisibilityPie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Series ="{Binding SeriesCollect}"  LegendLocation="Left" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="737" Canvas.Top="102" Width="400" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button Height="100" Width=" 100" Canvas.Left="10" Canvas.Top="137" Command="{Binding PopularityCommand}" Content="PopChange"/>

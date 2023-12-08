@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AdminClient.Utility.HttpHelper.Interfaces
 {
-    public interface IHttpConnection<T>
+	public interface IHttpConnection<T>
     {
         Task<List<T>> GetAll();
         Task<T?> GetOne(string id);

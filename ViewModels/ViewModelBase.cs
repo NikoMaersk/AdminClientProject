@@ -15,10 +15,10 @@ namespace AdminClient.ViewModels
 
         public ICommand OverviewCommand { get; set; } = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(FrontPageViewModel)));
 
+		protected string Token = string.Empty;
 
 
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
 		{
