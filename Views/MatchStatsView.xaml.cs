@@ -1,6 +1,4 @@
-﻿using LiveCharts.Wpf;
-using LiveCharts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,23 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
 
 namespace AdminClient.Views
 {
     /// <summary>
-    /// Interaction logic for AdvStatsView.xaml
+    /// Interaction logic for MatchStats.xaml
     /// </summary>
-    public partial class AdvStatsView : UserControl
+    public partial class MatchStats : Window
     {
-        public AdvStatsView()
+        public MatchStats()
         {
             InitializeComponent();
-           
         }
-
     }
 }
-

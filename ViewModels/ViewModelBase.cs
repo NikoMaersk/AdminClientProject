@@ -14,8 +14,10 @@ namespace AdminClient.ViewModels
         public ICommand UsersCommand { get; set; } = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(UsersViewModel)));
 
         public ICommand OverviewCommand { get; set; } = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(FrontPageViewModel)));
+		public ICommand MatchesCommand { get; set; } = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(MatchStatsViewModel)));
 
-		protected string Token = string.Empty;
+
+        protected string Token = string.Empty;
 
 
 		public event PropertyChangedEventHandler? PropertyChanged;

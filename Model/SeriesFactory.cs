@@ -1,13 +1,17 @@
 ﻿using AdminClient.Model.DataObjects;
+using AdminClient.Utility;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Definitions.Series;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -15,8 +19,10 @@ namespace AdminClient.Model
 {
     internal class SeriesFactory
     {
-        
-        public SeriesFactory() 
+        private static SeriesFactory _instance = new SeriesFactory();
+        public List<NameMatch> matches = new List<NameMatch>();
+        public static SeriesFactory instance => _instance;
+        private SeriesFactory() 
         {
             PointLabel = chartPoint =>
                     string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
@@ -86,6 +92,16 @@ namespace AdminClient.Model
             }
             return series;
         }
+        public async void UpdateAllMatches()
+        {
+                var client = HttpConnectionFactory.Instance.CreateNewHttpConnection<NameMatch>();
+                List<NameMatch> TempList = await client.GetAll();
+            matches = TempList;
+        }
+
+        
+
+
         public nestedSeries makeNestedSeries(string seriesName)
         {
 

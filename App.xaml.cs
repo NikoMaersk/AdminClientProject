@@ -25,7 +25,8 @@ namespace AdminClient
 			ServiceContainer.Register(() => new FrontPageViewModel());
 			ServiceContainer.Register(() => new UsersViewModel());
 			ServiceContainer.Register(() => new AdvStatsViewModel());
-		}
+            ServiceContainer.Register(() => new MatchStatsViewModel());
+        }
 
 		public void ChangeUserControl(Type viewModelType)
 		{

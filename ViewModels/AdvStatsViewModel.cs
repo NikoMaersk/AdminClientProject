@@ -66,10 +66,10 @@ namespace AdminClient.ViewModels
             togglePieChartCommand = new DelegateCommand(() => ToggleVisibility());
             AddSeries = new DelegateCommand(() => addSeries());
 
-            Names.Add(new Name { Id = 1, name = "test", Popularity  = 1, Occerrence = 111, Gender = Gender.male });
-            Names.Add(new Name { Id = 1, name = "test2", Popularity = 2, Occerrence = 111, Gender = Gender.female });
-            Names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.male });
-            Names.Add(new Name { Id = 1, name = "test4", Popularity = 4, Occerrence = 111, Gender = Gender.female });
+            Names.Add(new Name { Id = 1, name = "test", Popularity  = 1, Occerrence = 111, Gender = Gender.Male });
+            Names.Add(new Name { Id = 1, name = "test2", Popularity = 2, Occerrence = 111, Gender = Gender.Female });
+            Names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.Unisex });
+            Names.Add(new Name { Id = 1, name = "test4", Popularity = 4, Occerrence = 111, Gender = Gender.Female });
             SeriesButtons = new ObservableCollection<Button>();
             
 
@@ -100,15 +100,14 @@ namespace AdminClient.ViewModels
             }
             if (check)
             {
-                SeriesFactory seriesBuilder = new SeriesFactory();
-                SeriesFactory seriesFactory = new SeriesFactory();
-                seriesFactory.addNewSeries(ref ColumnSeries, SeriesNameTextBox);
+                
+                SeriesFactory.instance.addNewSeries(ref ColumnSeries, SeriesNameTextBox);
                 seriesNames.Add(SeriesNameTextBox);
                 Button button = new Button();
                 button.Click += buttest;
                 button.Content = SeriesNameTextBox;
                 SeriesButtons.Add(button);
-                nestedSeries.Add(seriesBuilder.makeNestedSeries(SeriesNameTextBox));
+                nestedSeries.Add(SeriesFactory.instance.makeNestedSeries(SeriesNameTextBox));
             }
 
             
@@ -216,10 +215,10 @@ namespace AdminClient.ViewModels
             }
             set
             {
-                SeriesFactory seriesBuilder = new SeriesFactory();
+                
                 if (chartTypeEnum == ChartTypeEnum.ColumnChart)
                 {
-                    seriesBuilder.MakeSeries(value, StatTypeEnum, ref ColumnSeries, selectedIndex);
+                    SeriesFactory.instance.MakeSeries(value, StatTypeEnum, ref ColumnSeries, selectedIndex);
                     nestedSeries[selectedIndex].SelectedSeries.Add(new SelectedSeries { Name = value.name, index = selectedIndex});
                     
                 }
@@ -233,7 +232,7 @@ namespace AdminClient.ViewModels
                 else
                 { // Converts the Name object into a usable series, the significant value is StatTypeEnum, ChartTypeEnum determins the underlying series object type, them should not be mixed.
                     SelectedNames.Add(value);
-                    SeriesCollect.Add(seriesBuilder.MakeSeries(value, StatTypeEnum));
+                    SeriesCollect.Add(SeriesFactory.instance.MakeSeries(value, StatTypeEnum));
 
                     
                 }

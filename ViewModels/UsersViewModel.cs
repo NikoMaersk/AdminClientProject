@@ -68,7 +68,7 @@ namespace AdminClient.ViewModels
 
         public void initialize()
         {
-            getDataUsers();
+            //getDataUsers();
         }
 
     }
