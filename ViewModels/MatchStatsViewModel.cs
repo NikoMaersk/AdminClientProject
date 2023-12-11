@@ -46,19 +46,19 @@ namespace AdminClient.ViewModels
 
             FoundMatches = new ObservableCollection<NameMatch>();
             Matches = new List<NameMatch>();
-
+            /*
             Matches.Add(new NameMatch("1", DateTime.Now, "test"));
             Matches.Add(new NameMatch("2", DateTime.Now, "test2"));
             Matches.Add(new NameMatch("3", DateTime.Now, "test3"));
             Matches.Add(new NameMatch("4", DateTime.Now, "test4"));
-
-            /*
+            */
+            
             SeriesFactory.instance.UpdateAllMatches();
             foreach (var item in SeriesFactory.instance.matches)
             {
                 Matches.Add(item);
             }
-            */
+            
         }
 
 

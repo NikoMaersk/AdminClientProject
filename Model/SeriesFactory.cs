@@ -93,7 +93,7 @@ namespace AdminClient.Model
 
             };
             series.Add(columnSeries);
-            //series.Add(new ColumnSeries { Title = name.name, Values = {name.Popularity,name.Occerrence }});
+            
         }
 
         private SeriesCollection AddtoSeriesCollection (ref SeriesCollection series, string s, int value, int index )
@@ -113,7 +113,8 @@ namespace AdminClient.Model
         public async void UpdateAllMatches()
         {
                 var client = HttpConnectionFactory.Instance.CreateNewHttpConnection<NameMatch>();
-                List<NameMatch> TempList = await client.GetAll();
+                List<NameMatch> TempList = new List<NameMatch>();
+               TempList = await client.GetAll();
             matches = TempList;
         }
         public Name GetNameFromString(string s)

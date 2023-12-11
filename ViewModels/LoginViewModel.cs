@@ -58,7 +58,7 @@ namespace AdminClient.ViewModels
 
 		public LoginViewModel()
         {
-			LoginCommand = new RelayCommand(() => ((App)Application.Current).ChangeUserControl(typeof(FrontPageViewModel)));
+            LoginCommand = new RelayCommand(ExecuteAuthorization);
         }
 
 

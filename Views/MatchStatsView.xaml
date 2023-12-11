@@ -9,7 +9,7 @@
                  mc:Ignorable="d"
          
 d:DesignHeight="800" d:DesignWidth="1280">
-   
+
 
 
 
@@ -20,8 +20,8 @@ d:DesignHeight="800" d:DesignWidth="1280">
 
 
         <Canvas x:Name="MatchesByTime" Width="1109" Height="802" Canvas.Left="157" Canvas.Top="10">
-            <Label Content="Choose Start Date" Canvas.Left="68" Canvas.Top="2"></Label>
-            <Viewbox Height="272" Width="323" Canvas.Left="1" Canvas.Top="33">
+            <Label Content="Choose Start Date" Canvas.Left="68" Canvas.Top="2" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White"></Label>
+            <Viewbox Height="272" Width="320" Canvas.Left="1" Canvas.Top="33">
                 <Calendar x:Name="StartCal" SelectionMode="MultipleRange" Canvas.Left="10" Canvas.Top="33" HorizontalAlignment="Left" VerticalAlignment="Top" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedDatesChanged">
@@ -30,10 +30,12 @@ d:DesignHeight="800" d:DesignWidth="1280">
                     </i:Interaction.Triggers>
                 </Calendar>
             </Viewbox>
-            <TextBox Text="{Binding StartDate }" Height="32" Width="128" Canvas.Left="18" Canvas.Top="310" HorizontalAlignment="Center" VerticalAlignment="Top"  FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White"></TextBox>
-            <TextBox Text="{Binding EndDate }" Height="32" Width="124" Canvas.Left="162" Canvas.Top="310" HorizontalAlignment="Left" VerticalAlignment="Top"  FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White"/>
+            <Label Content="Start date" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White" Canvas.Left="34" Canvas.Top="327"></Label>
+            <Label Content="End date" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White" Canvas.Left="182" Canvas.Top="327"></Label>
+            <TextBox Text="{Binding StartDate }" Height="32" Width="128" Canvas.Left="34" Canvas.Top="352" HorizontalAlignment="Left" VerticalAlignment="Top"  FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White"></TextBox>
+            <TextBox Text="{Binding EndDate }" Height="32" Width="124" Canvas.Left="183" Canvas.Top="352" HorizontalAlignment="Left" VerticalAlignment="Top"  FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White"/>
 
-            <ListView SelectedItem=""  ItemsSource="{Binding nameList}"  SelectionMode="Multiple" Width="252" Height="380" Canvas.Left="18" Canvas.Top="352" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White">
+            <ListView SelectedItem=""  ItemsSource="{Binding nameList}"  SelectionMode="Multiple" Width="252" Height="380" Canvas.Left="36" Canvas.Top="401" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Bahnschrift" BorderBrush="White" Background="{x:Null}" FontWeight="Bold" Foreground="White">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
