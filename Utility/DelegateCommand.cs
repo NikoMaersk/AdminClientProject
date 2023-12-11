@@ -21,22 +21,29 @@ namespace AdminClient.Utility
 		/// Encapsulated the representation for the validation of the execute method
 		/// </summary>
 		private Func<object, bool> canExecute;
+        private readonly Func<bool> _canExecute;
 
+        #endregion // Fields
 
-		#endregion // Fields
+        #region Constructors
 
-		#region Constructors
-
-		/// <summary>
-		/// Initializes AdminName new instance of the RelayCommand class
-		/// Creates AdminName new command that can always execute.
-		/// </summary>
-		/// <param name="execute">The execution logic.</param>
-		public DelegateCommand(Action<object> execute) : this(execute, DefaultCanExecute)
+        /// <summary>
+        /// Initializes AdminName new instance of the RelayCommand class
+        /// Creates AdminName new command that can always execute.
+        /// </summary>
+        /// <param name="execute">The execution logic.</param>
+        public DelegateCommand(Action<object> execute) : this(execute, DefaultCanExecute)
 		{
-		}
 
-		public DelegateCommand(Action execute) : this(execute, DefaultCanExecute)
+        }
+        public DelegateCommand(Action execute, Func<bool> canExecute = null)
+        {
+            execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+
+        public DelegateCommand(Action execute) : this(execute, DefaultCanExecute)
 		{
 			this.executePL = execute;
 		}

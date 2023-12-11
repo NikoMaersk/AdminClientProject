@@ -46,7 +46,6 @@ namespace AdminClient.ViewModels
         private SeriesCollection ColumnSeries = new SeriesCollection(); // should not be needed
         public ObservableCollection<Button> SeriesButtons { get ; set; }
         public SeriesCollection SeriesCollect { get; set; }
-        private ObservableCollection<nestedSeries> nestedSeries = new ObservableCollection<nestedSeries>();
         
         private void ExecuteAuthorization()
         {
@@ -61,20 +60,18 @@ namespace AdminClient.ViewModels
 
             Names = new List<Name>();
             SelectedNames = new ObservableCollection<Name>();
+            SeriesButtons = new ObservableCollection<Button>();
             PopularityCommand = new DelegateCommand(() => PopularityPie());
             OccerrenceCommand = new DelegateCommand(() => OccerrencePie());
             togglePieChartCommand = new DelegateCommand(() => ToggleVisibility());
             AddSeries = new DelegateCommand(() => addSeries());
 
-            Names.Add(new Name { Id = 1, name = "test", Popularity  = 1, Occerrence = 111, Gender = Gender.Male });
-            Names.Add(new Name { Id = 1, name = "test2", Popularity = 2, Occerrence = 111, Gender = Gender.Female });
-            Names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.Unisex });
-            Names.Add(new Name { Id = 1, name = "test4", Popularity = 4, Occerrence = 111, Gender = Gender.Female });
-            SeriesButtons = new ObservableCollection<Button>();
+           Names = SeriesFactory.instance.names.ToList();
+            
             
 
         }
-        private void buttest(object sender, EventArgs e)
+        private void ButtonSeriesSelector(object sender, EventArgs e)
         {
             foreach (Button button in SeriesButtons) 
             { 
@@ -104,10 +101,10 @@ namespace AdminClient.ViewModels
                 SeriesFactory.instance.addNewSeries(ref ColumnSeries, SeriesNameTextBox);
                 seriesNames.Add(SeriesNameTextBox);
                 Button button = new Button();
-                button.Click += buttest;
+                button.Click += ButtonSeriesSelector;
                 button.Content = SeriesNameTextBox;
                 SeriesButtons.Add(button);
-                nestedSeries.Add(SeriesFactory.instance.makeNestedSeries(SeriesNameTextBox));
+                
             }
 
             
@@ -121,12 +118,18 @@ namespace AdminClient.ViewModels
             SeriesCollect.Clear();
             SelectedNames.Clear();
             StatTypeEnum = StatTypeEnum.Popularity;
+            SeriesButtons.Clear();
+            seriesNames.Clear();
+            ColumnSeries.Clear();
         }
         public void OccerrencePie()
         {
             SeriesCollect.Clear();
             SelectedNames.Clear();
             StatTypeEnum = StatTypeEnum.Occerrence;
+            SeriesButtons.Clear();
+            seriesNames.Clear();
+            ColumnSeries.Clear();
         }
         #region VisibilityController
         public Visibility VisibilityPie
@@ -184,8 +187,12 @@ namespace AdminClient.ViewModels
                 SeriesCollect.Clear();
                 SelectedNames.Clear();
                 Trace.WriteLine(_VisibiltyPie.ToString());
+                SeriesButtons.Clear();
+                seriesNames.Clear();
+                ColumnSeries.Clear();
                 OnPropertyChanged("VisibilityColumn");
                 OnPropertyChanged("VisibilityPie");
+                
             }
             else
             {
@@ -196,8 +203,12 @@ namespace AdminClient.ViewModels
                 SeriesCollect.Clear();
                 SelectedNames.Clear();
                 Trace.WriteLine(_VisibiltyPie.ToString());
+                SeriesButtons.Clear();
+                seriesNames.Clear();
+                ColumnSeries.Clear();
                 OnPropertyChanged("VisibilityColumn");
                 OnPropertyChanged("VisibilityPie");
+
             }
 
             
@@ -215,21 +226,52 @@ namespace AdminClient.ViewModels
             }
             set
             {
-                
-                if (chartTypeEnum == ChartTypeEnum.ColumnChart)
-                {
-                    SeriesFactory.instance.MakeSeries(value, StatTypeEnum, ref ColumnSeries, selectedIndex);
-                    nestedSeries[selectedIndex].SelectedSeries.Add(new SelectedSeries { Name = value.name, index = selectedIndex});
-                    
-                }
-
                 if (SelectedNames.Contains(value)) // Allows users to removed items by reselecting a selected item
                 {
                     int index = SelectedNames.IndexOf(value);
                     SelectedNames.RemoveAt(index);
-                    SeriesCollect.RemoveAt(index);
+                    if (chartTypeEnum == ChartTypeEnum.PieChart) { SeriesCollect.RemoveAt(index); }
+                    
+
+                    else if (chartTypeEnum == ChartTypeEnum.ColumnChart) 
+                    {
+                        int indexNest = 0;
+                        foreach (var item in ColumnSeries[selectedIndex].Values)
+                        {
+                            LiveCharts.Defaults.ObservableValue chartValues = item as LiveCharts.Defaults.ObservableValue;
+                            switch (StatTypeEnum)
+                            {
+                                case StatTypeEnum.Popularity:
+                                    if (chartValues.Value == value.Popularity)
+                                    {
+                                        ColumnSeries[selectedIndex].Values.RemoveAt(indexNest);
+                                    }
+                                    break;
+                                case StatTypeEnum.Occerrence:
+                                    if (chartValues.Value == value.Occerrence)
+                                    {
+                                        ColumnSeries[selectedIndex].Values.RemoveAt(indexNest);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            indexNest++;
+                        }
+
+                    }
+
                 }
-                else
+
+                else if(chartTypeEnum == ChartTypeEnum.ColumnChart)
+                {
+                    SeriesFactory.instance.MakeSeries(value, StatTypeEnum, ref ColumnSeries, selectedIndex);
+                    //nestedSeries[selectedIndex].SelectedSeries.Add(new SelectedSeries { Name = value.name, index = selectedIndex});
+                    SelectedNames.Add(value);
+                }
+
+                
+                else if(chartTypeEnum == ChartTypeEnum.PieChart)
                 { // Converts the Name object into a usable series, the significant value is StatTypeEnum, ChartTypeEnum determins the underlying series object type, them should not be mixed.
                     SelectedNames.Add(value);
                     SeriesCollect.Add(SeriesFactory.instance.MakeSeries(value, StatTypeEnum));
@@ -246,14 +288,12 @@ namespace AdminClient.ViewModels
             get { return new Name(); }
             set
             {
-                if (SelectedNames.Contains(value))
+                if (SelectedNames.Contains(value) && chartTypeEnum == ChartTypeEnum.PieChart)
                 {
                     int index = SelectedNames.IndexOf(value);
                     SeriesCollect.RemoveAt(index);
                     SelectedNames.Remove(value);
                 }
-
-
                 OnPropertyChanged();
             }
 
@@ -271,11 +311,7 @@ namespace AdminClient.ViewModels
         {
             get; set;
         }
-        public ObservableCollection<nestedSeries> nestedSeriesview 
-        { 
-        get { return this.nestedSeries; }
-            set {  this.nestedSeries = value; }
-        }
+      
 
 
 

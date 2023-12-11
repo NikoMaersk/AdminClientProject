@@ -65,8 +65,9 @@ namespace AdminClient
 				var viewModelAssemblyName = viewModelType.GetTypeInfo().Assembly.FullName;
 				var viewAssemblyName = string.Format(CultureInfo.InvariantCulture, "{0}, {1}", viewName, viewModelAssemblyName);
 				var viewType = Type.GetType(viewAssemblyName);
+                
 
-				if (viewType != null)
+                if (viewType != null)
 				{
 					typeCache[viewModelType] = viewType;
 					return viewType;

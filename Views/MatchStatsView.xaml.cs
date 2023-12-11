@@ -10,16 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 namespace AdminClient.Views
 {
     /// <summary>
     /// Interaction logic for MatchStats.xaml
     /// </summary>
-    public partial class MatchStats : Window
+    public partial class MatchStatsView : UserControl
     {
-        public MatchStats()
+        public MatchStatsView()
         {
             InitializeComponent();
         }
