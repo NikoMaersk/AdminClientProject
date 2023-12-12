@@ -14,7 +14,7 @@ namespace AdminClient.Model.DataObjects
 			UserName = userName;
 			Email = email;
 			Names = names;
-			Partner = partner;
+			Partner = partner; // email
 		}
 	}
 }

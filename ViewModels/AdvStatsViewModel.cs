@@ -66,7 +66,7 @@ namespace AdminClient.ViewModels
             togglePieChartCommand = new DelegateCommand(() => ToggleVisibility());
             AddSeries = new DelegateCommand(() => addSeries());
 
-           Names = SeriesFactory.instance.names.ToList();
+            Names = SeriesFactory.instance.names;
             
             
 

@@ -1,5 +1,7 @@
-﻿using AdminClient.Model.DataObjects;
+﻿using AdminClient.Model;
+using AdminClient.Model.DataObjects;
 using AdminClient.Utility;
+using AdminClient.Utility.HttpHelper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,53 +9,71 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Windows.Input;
 
 namespace AdminClient.ViewModels
 {
     internal class UsersViewModel : ViewModelBase
     {
-
-        private Users _users;
-
-        public Users selectedUser    
-        {
-            get { return _users; }
-            set { _users = value; 
-                OnPropertyChanged();
-                getDataNames();
-            }
-
-        }
-
-
-
         public ObservableCollection<Users> UsersList { get; set; }
         public ObservableCollection<string> NamesList { get; set; }
+        public ObservableCollection<Name> ListOfMatchedNames { get; set; }
+        public ICommand saveUserChanges {  get; set; }
 
+        private Users _users;
+        private string _partner { get; set; }
+        private Users _partnerAsUser { get; set; }
+        private string _name { get; set; }
+        private string _email { get; set; }
+        private string _password { get; set; }
 
 
         public UsersViewModel()
         {
-            UsersList = new ObservableCollection<Users>();
-            initialize();
+            var test = SeriesFactory.instance.users;
+            saveUserChanges = new DelegateCommand(() => saveChanges());
+            UsersList = new ObservableCollection<Users>(SeriesFactory.instance.users);
+
+
         }
 
-        public async void getDataUsers()
+        public Users selectedUser
         {
-            var client = HttpConnectionFactory.Instance.CreateNewHttpConnection<Users>();
-            List<Users> users = await client.GetAll();
-            
-            if (users != null)
+            get { return _users; }
+            set
             {
-                foreach (Users user in users)
+                _users = value;
+                _partner = value.Partner;
+                if (_users.Partner != null)
                 {
-                    UsersList.Add(user);
+                    _partnerAsUser = getPartnerObject(value.Partner);
+                    ListOfMatchedNames = new ObservableCollection<Name>(GetMatchedNames());
                 }
+                
+                _name = value.UserName;
+                _email = value.Email;
+
+                getDataNames();
+
+                OnPropertyChanged();
+                OnPropertyChanged("name");
+                OnPropertyChanged("email");
+                OnPropertyChanged("SelectedPartner");
 
             }
-        }
 
-        public void getDataNames()
+        }
+        public string SelectedPartner
+        {
+            get => _partner;
+            set { _partner = value;  OnPropertyChanged(); }
+            }
+        public string name { get => _name; set => _name = value; }
+        public string email { get => _email; set => _email= value; }
+        public string password { get => _password; set => _password = value; }
+        
+        private void getDataNames()
         {
             if (selectedUser != null)
             {
@@ -65,11 +85,21 @@ namespace AdminClient.ViewModels
             }
 
         }
-
-        public void initialize()
+        private Users getPartnerObject(string name)
         {
-            //getDataUsers();
+            return SeriesFactory.instance.GetUsersFromString(name);
         }
-
+        private List<Name> GetMatchedNames()
+        {
+            return SeriesFactory.instance.GetMatchedNames(_users, _partnerAsUser);
+        }
+        private async void saveChanges()
+        {
+             string oldEmail = _users.Email;
+            _users.UserName = _name;
+            _users.Email = _email;
+            var client = HttpConnectionFactory.Instance.CreateNewHttpConnection<Users>() as HttpUserConnection;
+            await client.Patch(_users,_password, oldEmail);
+        }
     }
 }

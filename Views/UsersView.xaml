@@ -120,13 +120,13 @@
 
 
         <Label Content="List of users" Canvas.Left="238" Canvas.Top="67" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Foreground="White" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16"/>
-        <TextBox x:Name="tb_Name" Canvas.Left="500" TextWrapping="Wrap" Text="Name" Canvas.Top="96" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Background="#FF333333" BorderBrush="White" Foreground="White" FontSize="14" FontStyle="Italic" FontWeight="Bold"/>
+        <TextBox x:Name="tb_Name" Text="{Binding name}" Canvas.Left="500" TextWrapping="Wrap"  Canvas.Top="96" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Background="#FF333333" BorderBrush="White" Foreground="White" FontSize="14" FontStyle="Italic" FontWeight="Bold"/>
         <Label Content="Edit User" Canvas.Left="500" Canvas.Top="67" Width="100" Foreground="White" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <TextBox x:Name="tb_Email" Canvas.Left="500" TextWrapping="Wrap" Text="Email" Canvas.Top="133" Width="250" Height="32" Background="#FF333333" BorderBrush="White" Foreground="White" FontSize="14" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <TextBox x:Name="tb_Password" Canvas.Left="500" TextWrapping="Wrap" Text="Password" Canvas.Top="170" Width="250" Height="32" Background="#FF333333" BorderBrush="White" Foreground="White" FontSize="14" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox x:Name="tb_Email" Text="{Binding email}" Canvas.Left="500" TextWrapping="Wrap"  Canvas.Top="133" Width="250" Height="32" Background="#FF333333" BorderBrush="White" Foreground="White" FontSize="14" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox x:Name="tb_Password" Text="{Binding password}" Canvas.Left="500" TextWrapping="Wrap"  Canvas.Top="170" Width="250" Height="32" Background="#FF333333" BorderBrush="White" Foreground="White" FontSize="14" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label Content="Linked user:" Canvas.Left="568" Canvas.Top="269" Width="100" Foreground="White" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label x:Name="lbl_Link" Content="___________________________" Canvas.Left="670" Canvas.Top="269" Width="110" Foreground="White" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Button x:Name="btn_Save" Content="Save Changes" Canvas.Left="574" Canvas.Top="207" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="102" Foreground="White" BorderBrush="White" Background="{x:Null}"/>
+        <Label x:Name="lbl_Link" Content="{Binding SelectedPartner}" Canvas.Left="670" Canvas.Top="269" Width="110" Foreground="White" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Button x:Name="btn_Save" Content="Save Changes" Command="{Binding saveUserChanges}" Canvas.Left="574" Canvas.Top="207" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="102" Foreground="White" BorderBrush="White" Background="{x:Null}"/>
         
         <Label Content="User list of names" Canvas.Left="978" Canvas.Top="67" Width="140" Foreground="White" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         

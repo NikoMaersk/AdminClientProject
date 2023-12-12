@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AdminClient.Utility.HttpHelper
@@ -101,9 +103,25 @@ namespace AdminClient.Utility.HttpHelper
 				return null;
 			}
 		}
+		public async Task<bool> Patch(Users user, string password, string oldEmail) 
+		{
+			string s = _url +"email/"+ oldEmail;
+            await _client.PatchAsJsonAsync<Users>(s, user);
+            s = _url + oldEmail;
+            await _client.PatchAsJsonAsync<Users>(s, user);
+            s= _url+"pass/"+ oldEmail;
+			if (password != null)
+			{
+                string passwordJson = "\"password\": \"" + password + "\"";
+                await _client.PatchAsJsonAsync<string>(s, passwordJson);
+
+            }
+
+            return true;
+        }
 
 
-		public void Dispose()
+        public void Dispose()
 		{
 			_client.Dispose();
 		}
