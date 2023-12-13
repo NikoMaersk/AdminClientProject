@@ -66,7 +66,7 @@ namespace AdminClient.ViewModels
             togglePieChartCommand = new DelegateCommand(() => ToggleVisibility());
             AddSeries = new DelegateCommand(() => addSeries());
 
-            Names = SeriesFactory.instance.names;
+            Names = DataRepo.instance.names;
             
             
 
@@ -238,7 +238,7 @@ namespace AdminClient.ViewModels
                         int indexNest = 0;
                         foreach (var item in ColumnSeries[selectedIndex].Values)
                         {
-                            LiveCharts.Defaults.ObservableValue chartValues = item as LiveCharts.Defaults.ObservableValue;
+                            LiveCharts.Defaults.ObservableValue ?chartValues = item as LiveCharts.Defaults.ObservableValue;
                             switch (StatTypeEnum)
                             {
                                 case StatTypeEnum.Popularity:

@@ -19,10 +19,7 @@
         </Canvas>
         <Canvas Visibility="{Binding VisibiltySelected}" Width="500" Height="500" Canvas.Left="5" Canvas.Top="100">
 
-            <Label Content="Selected Names" Canvas.Left="263" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" 
-FontWeight="Bold" 
-FontSize="16"
-Foreground="White"/>
+            <Label Content="Selected Names" Canvas.Left="263" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bahnschrift" FontWeight="Bold" FontSize="16" Foreground="White"/>
 
             <ListView SelectedItem="{Binding UnSelectName}" ItemsSource="{Binding SelectedNames}" Width="177" Height="135" Canvas.Left="263" Canvas.Top="39" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FF333333" BorderThickness="1" Foreground="White" FontFamily="Bahnschrift" FontSize="16" BorderBrush="White" >
                 <ListView.ItemTemplate>

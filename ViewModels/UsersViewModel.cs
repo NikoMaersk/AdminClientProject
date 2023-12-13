@@ -31,9 +31,9 @@ namespace AdminClient.ViewModels
 
         public UsersViewModel()
         {
-            var test = SeriesFactory.instance.users;
+            var test = DataRepo.instance.users;
             saveUserChanges = new DelegateCommand(() => saveChanges());
-            UsersList = new ObservableCollection<Users>(SeriesFactory.instance.users);
+            UsersList = new ObservableCollection<Users>(DataRepo.instance.users);
 
 
         }
@@ -87,11 +87,11 @@ namespace AdminClient.ViewModels
         }
         private Users getPartnerObject(string name)
         {
-            return SeriesFactory.instance.GetUsersFromString(name);
+            return DataRepo.instance.GetUsersFromString(name);
         }
         private List<Name> GetMatchedNames()
         {
-            return SeriesFactory.instance.GetMatchedNames(_users, _partnerAsUser);
+            return DataRepo.instance.GetMatchedNames(_users, _partnerAsUser);
         }
         private async void saveChanges()
         {
