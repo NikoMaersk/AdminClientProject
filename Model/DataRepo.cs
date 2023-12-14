@@ -1,6 +1,7 @@
 ﻿using AdminClient.Model.DataObjects;
 using AdminClient.Utility;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,16 +25,19 @@ namespace AdminClient.Model
             names = new List<Name>();
             users = new List<Users>();
 
-            names.Add(new Name { Id = 1, name = "test", Popularity = 1, Occerrence = 111, Gender = Gender.Male });
-            names.Add(new Name { Id = 1, name = "test2", Popularity = 2, Occerrence = 111, Gender = Gender.Female });
-            names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.Unisex });
-            names.Add(new Name { Id = 1, name = "test4", Popularity = 4, Occerrence = 111, Gender = Gender.Female });
 
 
             UpdateAllMatches();
             UpdateAllNames();
             UpdateAllUser();
+            if (names.Count == 0)
+            {
 
+                names.Add(new Name { Id = 1, name = "test", Popularity = 1, Occerrence = 111, Gender = Gender.boy });
+                names.Add(new Name { Id = 1, name = "test2", Popularity = 2, Occerrence = 111, Gender = Gender.boy });
+                names.Add(new Name { Id = 1, name = "test3", Popularity = 3, Occerrence = 111, Gender = Gender.boy });
+                names.Add(new Name { Id = 1, name = "test4", Popularity = 4, Occerrence = 111, Gender = Gender.boy });
+            }
         }
         public async void UpdateAllMatches()
         {
@@ -75,7 +79,10 @@ namespace AdminClient.Model
 
         public List<Name> GetMatchedNames(Users user, Users partner)
         {
+            List<string> temp = user.Names;
             List<Name> matched = new List<Name>();
+
+           
             foreach (var item in user.Names)
             {
                 if (partner.Names.Contains(item))

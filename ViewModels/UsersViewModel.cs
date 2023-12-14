@@ -34,8 +34,8 @@ namespace AdminClient.ViewModels
             var test = DataRepo.instance.users;
             saveUserChanges = new DelegateCommand(() => saveChanges());
             UsersList = new ObservableCollection<Users>(DataRepo.instance.users);
-
-
+            NamesList = new ObservableCollection<string>();
+            ListOfMatchedNames = new ObservableCollection<Name>();
         }
 
         public Users selectedUser
@@ -43,6 +43,8 @@ namespace AdminClient.ViewModels
             get { return _users; }
             set
             {
+                ListOfMatchedNames.Clear();
+                NamesList.Clear();
                 _users = value;
                 _partner = value.Partner;
                 if (_users.Partner != null)
@@ -60,6 +62,7 @@ namespace AdminClient.ViewModels
                 OnPropertyChanged("name");
                 OnPropertyChanged("email");
                 OnPropertyChanged("SelectedPartner");
+                OnPropertyChanged("ListOfMatchedNames");
 
             }
 
@@ -99,7 +102,7 @@ namespace AdminClient.ViewModels
             _users.UserName = _name;
             _users.Email = _email;
             var client = HttpConnectionFactory.Instance.CreateNewHttpConnection<Users>() as HttpUserConnection;
-            await client.Patch(_users,_password, oldEmail);
+            //await client.Patch(_users,_password, oldEmail);
         }
     }
 }
