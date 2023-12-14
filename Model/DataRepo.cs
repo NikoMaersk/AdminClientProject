@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AdminClient.Model
 {
@@ -63,6 +65,7 @@ namespace AdminClient.Model
         {
             var name = from Name in names where Name.name == s select Name;
             return name.First();
+
         }
         public Users GetUsersFromString(string s)
         {

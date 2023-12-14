@@ -1,4 +1,5 @@
-﻿using AdminClient.Model.DataObjects;
+﻿using AdminClient.Model;
+using AdminClient.Model.DataObjects;
 using AdminClient.Utility;
 using AdminClient.Utility.HttpHelper;
 using System.Collections.Generic;
@@ -79,8 +80,7 @@ namespace AdminClient.ViewModels
 				HttpConnectionFactory.Instance.RegisterConnection(new HttpNamesConnection(token));
 				HttpConnectionFactory.Instance.RegisterConnection(new HttpUserConnection(token));
 				HttpConnectionFactory.Instance.RegisterConnection(new HttpMatchConnection(token));
-
-				((App)Application.Current).ChangeUserControl(typeof(FrontPageViewModel));
+                ((App)Application.Current).ChangeUserControl(typeof(FrontPageViewModel));
 			}
 			else
 			{
