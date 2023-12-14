@@ -53,8 +53,8 @@ namespace AdminClient.ViewModels
             Matches.Add(new NameMatch("4", DateTime.Now, "test4"));
             */
             
-            SeriesFactory.instance.UpdateAllMatches();
-            foreach (var item in SeriesFactory.instance.matches)
+            DataRepo.instance.UpdateAllMatches();
+            foreach (var item in DataRepo.instance.matches)
             {
                 Matches.Add(item);
             }
@@ -151,7 +151,7 @@ namespace AdminClient.ViewModels
                 }
                 foreach (var match in FoundMatches)
                 {
-                    Name tempName = SeriesFactory.instance.GetNameFromString(match.Name);
+                    Name tempName = DataRepo.instance.GetNameFromString(match.Name);
                    if (MatchedNames.Contains(tempName)) { break; }
                    else { MatchedNames.Add(tempName); SeriesFactory.instance.addNewSeries(ref seriesViews, tempName); }
 
