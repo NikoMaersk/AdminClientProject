@@ -20,7 +20,7 @@ using Calendar = System.Windows.Controls.Calendar;
 
 namespace AdminClient.ViewModels
 {
-    internal class MatchStatsViewModel : ViewModelBase, INotifyPropertyChanged
+    internal class MatchStatsViewModel : ViewModelBase
     {
         public DateTime _startDate { get; set; }
         public DateTime _endDate { get; set; }
@@ -185,11 +185,8 @@ namespace AdminClient.ViewModels
         }
         #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
+
 
 
     }

@@ -22,7 +22,7 @@ using System.Windows.Media;
 
 namespace AdminClient.ViewModels
 {
-    internal class AdvStatsViewModel : ViewModelBase, INotifyPropertyChanged
+    internal class AdvStatsViewModel : ViewModelBase
     {
 
         public ICommand PopularityCommand { get; set; }
@@ -315,11 +315,7 @@ namespace AdminClient.ViewModels
 
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
     }
     
 }
